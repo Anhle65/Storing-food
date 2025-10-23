@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4c16913-db78-40e4-8b74-cc3af326d412" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AddItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cors.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/firebase.js" afterDir="false" />
+    <list default="true" id="f4c16913-db78-40e4-8b74-cc3af326d412" name="Changes" comment="create new item and save in firebase storage">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,11 +88,33 @@
       <workItem from="1761081787542" duration="1709000" />
       <workItem from="1761098306295" duration="321000" />
       <workItem from="1761098682409" duration="1452000" />
-      <workItem from="1761120013113" duration="25663000" />
+      <workItem from="1761120013113" duration="27299000" />
     </task>
+    <task id="LOCAL-00001" summary="set up firebase for data storage">
+      <option name="closed" value="true" />
+      <created>1761214153511</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1761214153511</updated>
+    </task>
+    <task id="LOCAL-00002" summary="create new item and save in firebase storage">
+      <option name="closed" value="true" />
+      <created>1761214180971</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1761214180971</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="set up firebase for data storage" />
+    <MESSAGE value="create new item and save in firebase storage" />
+    <option name="LAST_COMMIT_MESSAGE" value="create new item and save in firebase storage" />
   </component>
 </project>
