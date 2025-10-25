@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {db, storage} from "./firebase";
+import {db, storage} from "../config/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
@@ -23,8 +23,10 @@ export default function AddItemForm() {
                 expireDate,
                 imageDownloadUrl,
                 storageLocation,
-                selectedDate
+                selectedDate,
+                foodState
             });
+            console.log(imageDownloadUrl)
             alert("Item added!");
             // setName("");
             // setExpireDate("");
