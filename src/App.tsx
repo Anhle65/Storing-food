@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import './App.css';
 import AddItem from "./components/AddItem";
 import {AuthenticationComponent} from "./components/AuthenticationComponent";
+import {ItemInformation} from "./components/ItemInformation";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<AuthenticationComponent />} />
                     <Route path="/item" element={<AddItem />} />
+                    <Route path="/item/:itemId" element={<ItemInformation />} />
                 </Routes>
             </Router>
         </div>
