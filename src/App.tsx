@@ -5,6 +5,7 @@ import './App.css';
 import AddItem from "./components/AddItem";
 import {AuthenticationComponent} from "./components/AuthenticationComponent";
 import {ItemInformation} from "./components/ItemInformation";
+import {ItemsList} from "./components/ItemsList";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/" element={<AuthenticationComponent />} />
                     <Route path="/item" element={<AddItem />} />
                     <Route path="/item/:itemId" element={<ItemInformation />} />
+                    <Route path="/items" element={<ItemsList />} />
                 </Routes>
             </Router>
         </div>
