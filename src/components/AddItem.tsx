@@ -10,7 +10,6 @@ export default function AddItemForm() {
     const [categoryId, setCategoryId] = useState(0);
     const [expireDate, setExpireDate] = useState("");
     const [imageUrl, setImageUrl] = useState<File | null>(null);
-    // const [imageDownloadUrl, setImageDownloadUrl] = useState("");
     const [previewImage, setPreviewImage] = useState("");
     const [storageLocation, setStorageLocation] = useState("");
     const [foodState, setFoodState] = useState("");
@@ -21,7 +20,6 @@ export default function AddItemForm() {
             const imageDownloadUrl = await uploadImage()
             await addItem(itemId, name, categoryId, expireDate, imageDownloadUrl, storageLocation, foodState);
             console.log(imageDownloadUrl)
-            // alert("Item added!");
             navigator("/item/"+itemId);
         } catch (err) {
             console.error("Error adding item:", err);
@@ -34,17 +32,15 @@ export default function AddItemForm() {
             // For previewing the image just right after user uploads file
             // and let the background upload happens which avoids waiting time
             const previewUrl = URL.createObjectURL(fileImage);
-            console.log("========previewUrl", previewUrl);
             setPreviewImage(previewUrl);
         }
     }
     const uploadImage = async () => {
-        if (!imageUrl) return; // Ensure imageUrl is valid
+        if (!imageUrl) return "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"; // Ensure imageUrl is valid
         try {
             const imageRef = ref(storage, `images/${imageUrl.name + v4()}`); // Use image name
             const snapshot = await uploadBytes(imageRef, imageUrl); // Upload the file
             const url = await getDownloadURL(snapshot.ref); // Get the download URL
-            console.log("========", url);
             return url;
         } catch (error) {
             console.error("Error uploading image:", error);

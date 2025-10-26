@@ -1,4 +1,4 @@
-import {collection, addDoc, serverTimestamp, getDocs, query, where} from "firebase/firestore";
+import {collection, addDoc, serverTimestamp, getDocs, query, where, orderBy} from "firebase/firestore";
 import { db } from "../config/firebase.js";
 export async function addItem(itemId, name, categoryId, expireDate, imageDownloadUrl, storageLocation, foodState) {
     try {
@@ -32,6 +32,24 @@ export async function getItemInformation(itemId) {
         }
     } catch (error) {
         console.error("Error getting item information:", error);
+        return null;
+    }
+}
+
+export async function getAllItems() {
+    console.log("Fetching all items from Firestore");
+    const collectionRef = collection(db, "items");
+    const queryString = query(collectionRef, orderBy("expireDate", "asc"));
+    try {
+        const querySnapshot = await getDocs(queryString);
+        const items = [];
+        querySnapshot.forEach((doc) => {
+            items.push(doc.data());
+        });
+        console.log("All items:", items);
+        return items;
+    } catch (error) {
+        console.error("Error getting all items:", error);
         return null;
     }
 }
