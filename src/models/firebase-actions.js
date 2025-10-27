@@ -1,15 +1,15 @@
 import {collection, addDoc, serverTimestamp, getDocs, query, where, orderBy} from "firebase/firestore";
 import { db } from "../config/firebase.js";
-export async function addItem(itemId, name, categoryId, expireDate, imageDownloadUrl, storageLocation, foodState) {
+export async function addItem(itemId, name, categoryId, createDate, expireDate, imageDownloadUrl, storageLocation, foodState) {
     try {
         await addDoc(collection(db, "items"), {
             itemId,
             name,
             categoryId,
-            expireDate: new Date(expireDate),
+            expireDate: expireDate,
             imageDownloadUrl,
             storageLocation,
-            createdDate: serverTimestamp(),
+            createdDate: createDate,
             foodState
         });
         console.log("Item added successfully");

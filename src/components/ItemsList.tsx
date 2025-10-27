@@ -14,7 +14,7 @@ export const ItemsList = () => {
         }
         fetchItems();
     }, []);
-    const item_rows = () => items.map((item) => <ItemListObject itemJSON={JSON.stringify(item)}/>);
+    const item_rows = () => items.map((item) => <ItemListObject key={JSON.stringify(item)} itemJSON={JSON.stringify(item)}/>);
     return (
         <>
             <div>

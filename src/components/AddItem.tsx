@@ -1,24 +1,32 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {storage} from "../config/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import {addItem} from "../models/firebase-actions";
 import {useNavigate} from "react-router-dom";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs, {Dayjs} from "dayjs";
+import 'dayjs/locale/en-gb';
+import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
+
 export default function AddItemForm() {
     const navigator = useNavigate();
     const [name, setName] = useState("");
     const [categoryId, setCategoryId] = useState(0);
-    const [expireDate, setExpireDate] = useState("");
+    const [expireDate, setExpireDate] = useState(dayjs(new Date()));
     const [imageUrl, setImageUrl] = useState<File | null>(null);
     const [previewImage, setPreviewImage] = useState("");
     const [storageLocation, setStorageLocation] = useState("");
     const [foodState, setFoodState] = useState("");
+    const [createdDate, setCreatedDate] = useState(dayjs(new Date()));
     const itemId = v4();
     const handleAddItem = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
             const imageDownloadUrl = await uploadImage()
-            await addItem(itemId, name, categoryId, expireDate, imageDownloadUrl, storageLocation, foodState);
+            await addItem(itemId, name, categoryId, createdDate.format('DD-MM-YYYY'), expireDate.format('DD-MM-YYYY'), imageDownloadUrl, storageLocation, foodState);
             console.log(imageDownloadUrl)
             navigator("/item/"+itemId);
         } catch (err) {
@@ -63,12 +71,25 @@ export default function AddItemForm() {
                     value={categoryId}
                     onChange={(e) => setCategoryId(parseInt(e.target.value))}
                     className="item-input-form"/><br/>
-                Expire Date:
-                <input
-                    type="date"
-                    value={expireDate}
-                    onChange={(e) => setExpireDate(e.target.value)}
-                    className="item-input-form"/><br/>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+                    <DatePicker
+                        label="Expire Date:"
+                        value={expireDate}
+                        minDate={dayjs(new Date())}
+                        onChange={
+                        (newValue: any) => {
+                            setExpireDate(newValue);
+                        }
+                    }
+                    />
+                </LocalizationProvider>
+                {/*<input*/}
+                {/*    type="date"*/}
+                {/*    min= {new Date(Date.now()).getDate()}*/}
+                {/*    value={expireDate}*/}
+                {/*    onChange={(e) => setExpireDate(e.target.value)}*/}
+                {/*    className="item-input-form"/>*/}
+                <br/>
                 Storage Location:
                 <input
                     type="text"
