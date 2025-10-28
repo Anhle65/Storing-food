@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4c16913-db78-40e4-8b74-cc3af326d412" name="Changes" comment="create new item and save in firebase storage">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f4c16913-db78-40e4-8b74-cc3af326d412" name="Changes" comment="install MUI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/firebase.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +17,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -67,6 +66,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\UC projects\Storing-food\src\models" />
+      <recent name="D:\UC projects\Storing-food" />
+      <recent name="D:\UC projects\Storing-food\src\components" />
+      <recent name="D:\UC projects\Storing-food\src\config" />
+      <recent name="D:\UC projects\Storing-food\src\services" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="localhost:3000" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:3000">
       <method v="2" />
@@ -88,7 +96,7 @@
       <workItem from="1761081787542" duration="1709000" />
       <workItem from="1761098306295" duration="321000" />
       <workItem from="1761098682409" duration="1452000" />
-      <workItem from="1761120013113" duration="27299000" />
+      <workItem from="1761120013113" duration="72046000" />
     </task>
     <task id="LOCAL-00001" summary="set up firebase for data storage">
       <option name="closed" value="true" />
@@ -106,7 +114,87 @@
       <option name="project" value="LOCAL" />
       <updated>1761214180971</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Refactor: use .env for Firebase config">
+      <option name="closed" value="true" />
+      <created>1761215228317</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1761215228317</updated>
+    </task>
+    <task id="LOCAL-00004" summary="re-structure files">
+      <option name="closed" value="true" />
+      <created>1761392959528</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1761392959528</updated>
+    </task>
+    <task id="LOCAL-00005" summary="create Authentication screen and log-in by Google pop-up account">
+      <option name="closed" value="true" />
+      <created>1761393022681</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1761393022681</updated>
+    </task>
+    <task id="LOCAL-00006" summary="separate logic action from component">
+      <option name="closed" value="true" />
+      <created>1761451192586</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761451192586</updated>
+    </task>
+    <task id="LOCAL-00007" summary="create ItemInformation screen">
+      <option name="closed" value="true" />
+      <created>1761451264396</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1761451264396</updated>
+    </task>
+    <task id="LOCAL-00008" summary="split logic of date conversion from component">
+      <option name="closed" value="true" />
+      <created>1761477747737</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1761477747737</updated>
+    </task>
+    <task id="LOCAL-00009" summary="create screen showing all items in database">
+      <option name="closed" value="true" />
+      <created>1761477872277</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1761477872277</updated>
+    </task>
+    <task id="LOCAL-00010" summary="split timestamp conversion logic">
+      <option name="closed" value="true" />
+      <created>1761477928974</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1761477928974</updated>
+    </task>
+    <task id="LOCAL-00011" summary="use Datejs to store date and use MUI for designing">
+      <option name="closed" value="true" />
+      <created>1761562958881</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1761562958881</updated>
+    </task>
+    <task id="LOCAL-00012" summary="install MUI">
+      <option name="closed" value="true" />
+      <created>1761562991945</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1761562991945</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +203,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="set up firebase for data storage" />
     <MESSAGE value="create new item and save in firebase storage" />
-    <option name="LAST_COMMIT_MESSAGE" value="create new item and save in firebase storage" />
+    <MESSAGE value="Refactor: use .env for Firebase config" />
+    <MESSAGE value="re-structure files" />
+    <MESSAGE value="create Authentication screen and log-in by Google pop-up account" />
+    <MESSAGE value="separate logic action from component" />
+    <MESSAGE value="create ItemInformation screen" />
+    <MESSAGE value="split logic of date conversion from component" />
+    <MESSAGE value="create screen showing all items in database" />
+    <MESSAGE value="split timestamp conversion logic" />
+    <MESSAGE value="use Datejs to store date and use MUI for designing" />
+    <MESSAGE value="install MUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="install MUI" />
   </component>
 </project>
