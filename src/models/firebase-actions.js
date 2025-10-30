@@ -1,4 +1,4 @@
-import {collection, addDoc, getDocs, query, where, orderBy, deleteDoc, doc, updateDoc} from "firebase/firestore";
+import {collection, addDoc, getDocs, query, where, orderBy, deleteDoc, doc, updateDoc, onSnapshot} from "firebase/firestore";
 import {db, storage} from "../config/firebase.js";
 import {getDownloadURL, ref, uploadBytes, deleteObject} from "firebase/storage";
 import {v4} from "uuid";
@@ -15,7 +15,7 @@ export async function uploadImage (imageUrl) {
     } catch (error) {
         console.error("Error uploading image:", error);
     }
-};
+}
 
 export async function deleteImage(imageUrl) {
     if (imageUrl === DEFAULT_IMAGE_URL) return;
@@ -83,7 +83,7 @@ export function useGetItemById(itemId) {
         name: '',
         categoryId: -1,
         expireDate: '',
-        imageDownloadUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
+        imageDownloadUrl: DEFAULT_IMAGE_URL,
         storageLocation: '',
         createdDate: '',
         foodState: ""

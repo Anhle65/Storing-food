@@ -11,7 +11,7 @@ export const ItemsList = () => {
     const auth = useGetAuth();
     const navigate = useNavigate();
     const [openAddMessage, setOpenAddMessage] = useState(false);
-    const items = useGetAllItems();
+    const items = useGetAllItems(auth.userId);
 
     const item_rows = () => items.map((item) => <ItemListObject key={JSON.stringify(item)} itemJSON={JSON.stringify(item)}/>);
     return (

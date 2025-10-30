@@ -4,7 +4,7 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import React, {useState} from "react";
-import {deleteImage, updateItem, uploadImage} from "../models/firebase-actions";
+import {deleteImage, updateItem, uploadImage, useGetItemById} from "../models/firebase-actions";
 import {useNavigate, useParams} from "react-router-dom";
 import {DEFAULT_IMAGE_URL} from "../shares/defaultValue";
 

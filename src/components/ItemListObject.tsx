@@ -1,6 +1,7 @@
 import {getNumberDaysLeftBeforeExpiration} from "../models/dateConverter";
 import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
 import {useNavigate} from "react-router-dom";
+import {DEFAULT_IMAGE_URL} from "../shares/defaultValue";
 
 interface IItemProps {
     itemJSON: string|undefined
@@ -8,7 +9,7 @@ interface IItemProps {
 export const ItemListObject = (props: IItemProps) => {
     const navigator = useNavigate();
     const itemData = props.itemJSON ? JSON.parse(props.itemJSON) : null;
-    const imageDownloadUrl = itemData?.imageDownloadUrl || "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
+    const imageDownloadUrl = itemData?.imageDownloadUrl || DEFAULT_IMAGE_URL;
     return (
         <Card sx={{ display: 'flex', maxWidth: 500, margin: '10px auto' }} onClick={() => {navigator(`/item/${itemData.itemId}`)}}>
             <CardMedia

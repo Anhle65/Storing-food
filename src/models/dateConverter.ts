@@ -14,6 +14,7 @@ export function convertTimestampToDateString (timestamp: { seconds: number; nano
     return date.toDateString();
 }
 
-export function getNumberDaysLeftBeforeExpiration (date1: string, date2: string): number {
-    return dayjs(date1,'DD-MM-YYYY').diff(dayjs(date2,'DD-MM-YYYY'), 'day');
+export function getNumberDaysLeftBeforeExpiration (date: string): number {
+    const today = dayjs(new Date());
+    return dayjs(date,'DD-MM-YYYY').diff(dayjs(today,'DD-MM-YYYY'), 'day');
 }

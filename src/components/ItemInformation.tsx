@@ -1,6 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useGetItemById} from "../models/firebase-actions";
-import {deleteImage, removeItem} from "../models/firebase-actions";
+import {deleteImage, removeItem, useGetItemById} from "../models/firebase-actions";
 import {useEffect, useState} from "react";
 import {getNumberDaysLeftBeforeExpiration} from "../models/dateConverter";
 import {Card, CardContent, CardMedia, Divider, Fab, Grid, Tooltip, Typography, Dialog,
@@ -23,10 +22,12 @@ export const ItemInformation = () => {
     const [openEditMessage, setOpenEditMessage] = useState(false);
     const [openDeleteMessage, setOpenDeleteMessage] = useState(false);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const editGame = () => {
+    const editItem = () => {
         navigate(`/item/${itemId}/edit`);
     }
-    const itemDetails = useGetItemById(itemId);
+    let itemDetails = useGetItemById(itemId);
+    localStorage.setItem("currentItem", JSON.stringify(itemDetails));
+
     if (!itemId) {
         return <p>Invalid item ID</p>;
     }
@@ -85,7 +86,7 @@ export const ItemInformation = () => {
                             <Grid size={6}>
                                 <Typography variant="subtitle2" color="textSecondary">Days Left:</Typography>
                                 <Typography
-                                    variant="body1">{getNumberDaysLeftBeforeExpiration(itemDetails.expireDate, itemDetails.createdDate)} days</Typography>
+                                    variant="body1">{getNumberDaysLeftBeforeExpiration(itemDetails.expireDate)} days</Typography>
                             </Grid>
                             <Grid size={6}>
                                 <Typography variant="subtitle2" color="textSecondary">Food State:</Typography>
@@ -95,12 +96,12 @@ export const ItemInformation = () => {
                                 <Typography variant='subtitle2' color='error'>
                                     {/* TODO: calculate and display urgent state based on days left */}
                                     Urgent
-                                    State: {getNumberDaysLeftBeforeExpiration(itemDetails.expireDate, itemDetails.createdDate) <= 3 ? 'URGENT' : 'Normal'}
+                                    State: {getNumberDaysLeftBeforeExpiration(itemDetails.expireDate) <= 3 ? 'URGENT' : 'Normal'}
                                 </Typography>
                                 <Tooltip open={openEditMessage} onClose={() => setOpenEditMessage(false)}
                                          onOpen={() => setOpenEditMessage(true)}
                                          title="Edit item">
-                                    <Fab color="success" aria-label="edit" onClick={editGame}>
+                                    <Fab color="success" aria-label="edit" onClick={editItem}>
                                         <EditIcon/>
                                     </Fab>
                                 </Tooltip>
