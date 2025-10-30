@@ -3,7 +3,7 @@ import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {deleteImage, updateItem, uploadImage} from "../models/firebase-actions";
 import {useNavigate, useParams} from "react-router-dom";
 import {DEFAULT_IMAGE_URL} from "../shares/defaultValue";
@@ -21,9 +21,6 @@ export const EditItem = () => {
     const [storageLocation, setStorageLocation] = useState(originalItem.storageLocation);
     const [foodState, setFoodState] = useState(originalItem.foodState);
     let updateFields: Record<string, string|number> = {}
-    useEffect (() => {
-        console.log("Original item:", originalItem)
-    },[])
     const onImageChange = (event:any) => {
         if (event.target.files[0]) {
             const fileImage = event.target.files[0]
@@ -34,21 +31,18 @@ export const EditItem = () => {
     }
     const onSaveChanges = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        if (itemName !== originalItem.name) {
-            updateFields['name'] = itemName;
-        }
-        if (categoryId !== originalItem.categoryId) {
-            updateFields['categoryId'] = categoryId;
-        }
-        if (expireDate.format('DD-MM-YYYY') !== originalItem.expireDate) {
-            updateFields['expireDate'] = expireDate.format('DD-MM-YYYY');
-        }
-        if (storageLocation !== originalItem.storageLocation) {
-            updateFields['storageLocation'] = storageLocation;
-        }
-        if (foodState !== originalItem.foodState) {
-            updateFields['foodState'] = foodState;
-        }
+        const fieldsToUpdate: Record<string, string|number> = {
+            name: itemName || '',
+            categoryId: categoryId|| -1,
+            expireDate: expireDate.format('DD-MM-YYYY'),
+            storageLocation: storageLocation || '',
+            foodState: foodState || '',
+        };
+        Object.keys(fieldsToUpdate).forEach((key) => {
+            if (fieldsToUpdate[key] !== originalItem[key]) {
+                updateFields[key] = fieldsToUpdate[key];
+            }
+        });
         if (imageUrl !== originalItem.imageDownloadUrl) {
             const imageDownloadUrl = await uploadImage(imageUrl);
             updateFields['imageDownloadUrl'] = imageDownloadUrl || DEFAULT_IMAGE_URL;

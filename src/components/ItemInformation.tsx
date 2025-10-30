@@ -15,7 +15,7 @@ import {DEFAULT_IMAGE_URL} from "../shares/defaultValue";
 import {NavBar} from "./NavBar";
 
 export const ItemInformation = () => {
-    const navigator = useNavigate();
+    const navigate = useNavigate();
     const {itemId} = useParams();
     const auth = useGetAuth();
     const [imageDownloadUrl, setImageDownloadUrl] = useState<string>(DEFAULT_IMAGE_URL);
@@ -24,11 +24,11 @@ export const ItemInformation = () => {
     const [openDeleteMessage, setOpenDeleteMessage] = useState(false);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const editGame = () => {
-        navigator(`/item/${itemId}/edit`);
+        navigate(`/item/${itemId}/edit`);
     }
     useEffect( () => {
         const getItemDetails = async () => {
-            if (!itemId) navigator('/items');
+            if (!itemId) navigate('/items');
             const item = await getItemInformation(itemId);
             if (!item) return;
             console.log("Item detail from firebase:", JSON.parse(item));
@@ -45,7 +45,7 @@ export const ItemInformation = () => {
             await removeItem(itemId, auth.userId);
             await deleteImage(imageDownloadUrl);
             console.log("Deleted");
-            navigator('/items');
+            navigate('/items');
         } catch (err) {
             console.error("Error deleting item:", err);
             alert("Error deleting item. Please try again.");
