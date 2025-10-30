@@ -1,4 +1,4 @@
-import {collection, addDoc, getDocs, query, where, orderBy, deleteDoc, doc} from "firebase/firestore";
+import {collection, addDoc, getDocs, query, where, orderBy, deleteDoc, doc, updateDoc} from "firebase/firestore";
 import {db, storage} from "../config/firebase.js";
 import {getDownloadURL, ref, uploadBytes, deleteObject} from "firebase/storage";
 import {v4} from "uuid";
@@ -42,6 +42,21 @@ export async function removeItem(itemId, userId) {
         console.error("Error removing item:", error);
     }
 }
+
+export async function updateItem(itemId, updateFields) {
+    if (!itemId || !updateFields) return;
+    try{
+        const queryResult = query(collection(db, "items"), where("itemId", "==", itemId));
+        const querySnapshot = await getDocs(queryResult);
+        const docId = querySnapshot.docs[0].id;
+        for (const [key, value] of Object.entries(updateFields)) {
+            console.log(`Updating field: ${key} with value: ${value}`);
+            await updateDoc(doc(db, "items", docId), {[key]: value});
+        }
+    } catch (error) {
+        console.error("Error updating item:", error);
+    }
+}
 export async function addItem(userId, itemId, name, categoryId, createDate, expireDate, imageDownloadUrl, storageLocation, foodState) {
     try {
         await addDoc(collection(db, "items"), {
@@ -82,7 +97,7 @@ export async function getItemInformation(itemId) {
 export async function getAllItems(userId) {
     console.log("Fetching all items from Firestore");
     const collectionRef = collection(db, "items");
-    const queryString = query(collectionRef, where("userId", "==",userId ), orderBy("expireDate", "asc"));
+    const queryString = query(collectionRef, where("userId", "==",userId ), orderBy("expireDate", "desc"));
     try {
         const querySnapshot = await getDocs(queryString);
         const items = [];

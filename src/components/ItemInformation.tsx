@@ -34,10 +34,11 @@ export const ItemInformation = () => {
             console.log("Item detail from firebase:", JSON.parse(item));
             setImageDownloadUrl(JSON.parse(item).imageDownloadUrl);
             setItemDetails(JSON.parse(item));
+            localStorage.setItem('currentItem', item);
             return JSON.parse(item);
         }
         getItemDetails();
-    }, [itemId]);
+    }, []);
 
     const deleteItem = async () => {
         try {
