@@ -1,5 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {deleteImage, getItemInformation, removeItem} from "../models/firebase-actions";
+import {useGetItemById} from "../models/firebase-actions";
+import {deleteImage, removeItem} from "../models/firebase-actions";
 import {useEffect, useState} from "react";
 import {getNumberDaysLeftBeforeExpiration} from "../models/dateConverter";
 import {Card, CardContent, CardMedia, Divider, Fab, Grid, Tooltip, Typography, Dialog,
@@ -19,26 +20,20 @@ export const ItemInformation = () => {
     const {itemId} = useParams();
     const auth = useGetAuth();
     const [imageDownloadUrl, setImageDownloadUrl] = useState<string>(DEFAULT_IMAGE_URL);
-    const [itemDetails, setItemDetails] = useState<any>(null);
     const [openEditMessage, setOpenEditMessage] = useState(false);
     const [openDeleteMessage, setOpenDeleteMessage] = useState(false);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const editGame = () => {
         navigate(`/item/${itemId}/edit`);
     }
-    useEffect( () => {
-        const getItemDetails = async () => {
-            if (!itemId) navigate('/items');
-            const item = await getItemInformation(itemId);
-            if (!item) return;
-            console.log("Item detail from firebase:", JSON.parse(item));
-            setImageDownloadUrl(JSON.parse(item).imageDownloadUrl);
-            setItemDetails(JSON.parse(item));
-            localStorage.setItem('currentItem', item);
-            return JSON.parse(item);
-        }
-        getItemDetails();
-    }, []);
+    const itemDetails = useGetItemById(itemId);
+    if (!itemId) {
+        return <p>Invalid item ID</p>;
+    }
+
+    if (!itemDetails) {
+        return <p>Loading item details...</p>;
+    }
 
     const deleteItem = async () => {
         try {

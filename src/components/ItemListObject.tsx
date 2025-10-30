@@ -23,7 +23,7 @@ export const ItemListObject = (props: IItemProps) => {
                         {itemData.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                        Days left: {getNumberDaysLeftBeforeExpiration(itemData.expireDate, itemData.createdDate)}
+                        Days left: {getNumberDaysLeftBeforeExpiration(itemData.expireDate)}
                     </Typography>
                 </CardContent>
             </Box>

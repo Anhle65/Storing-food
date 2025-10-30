@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {getAllItems} from "../models/firebase-actions";
+import {useState} from "react";
+import {useGetAllItems} from "../models/firebase-actions";
 import {ItemListObject} from "./ItemListObject";
 import {NavBar} from "./NavBar";
 import {useGetAuth} from "../hooks/useGetAuth";
@@ -8,20 +8,10 @@ import {Fab, Tooltip} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 export const ItemsList = () => {
-    const [items, setItems] = useState<string[]>([]);
     const auth = useGetAuth();
     const navigate = useNavigate();
     const [openAddMessage, setOpenAddMessage] = useState(false);
-    useEffect(() => {
-        const fetchItems = async () => {
-            const allItems = await getAllItems(auth.userId);
-            if (allItems) {
-                setItems(allItems);
-            }
-            return allItems;
-        }
-        fetchItems();
-    }, [auth.userId]);
+    const items = useGetAllItems();
 
     const item_rows = () => items.map((item) => <ItemListObject key={JSON.stringify(item)} itemJSON={JSON.stringify(item)}/>);
     return (

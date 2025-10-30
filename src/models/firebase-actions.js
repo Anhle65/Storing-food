@@ -3,6 +3,7 @@ import {db, storage} from "../config/firebase.js";
 import {getDownloadURL, ref, uploadBytes, deleteObject} from "firebase/storage";
 import {v4} from "uuid";
 import {DEFAULT_IMAGE_URL} from "../shares/defaultValue";
+import {useEffect, useState} from "react";
 export async function uploadImage (imageUrl) {
     if (!imageUrl)
         return DEFAULT_IMAGE_URL; // Ensure imageUrl is valid
@@ -74,40 +75,70 @@ export async function addItem(userId, itemId, name, categoryId, createDate, expi
     } catch (error) {
         console.error("Error adding item:", error);
     }
-};
-
-export async function getItemInformation(itemId) {
-    const queryResult = query(collection(db, "items"), where("itemId", "==", itemId));
-    try {
-        const querySnapshot = await getDocs(queryResult);
-        if (!querySnapshot.empty) {
-            const itemData = querySnapshot.docs[0].data();
-            console.log("Item data:", itemData);
-            return JSON.stringify(itemData);
-        } else {
-            console.log("No matching documents found");
-            return null;
-        }
-    } catch (error) {
-        console.error("Error getting item information:", error);
-        return null;
-    }
 }
 
-export async function getAllItems(userId) {
-    console.log("Fetching all items from Firestore");
-    const collectionRef = collection(db, "items");
-    const queryString = query(collectionRef, where("userId", "==",userId ), orderBy("expireDate", "desc"));
-    try {
-        const querySnapshot = await getDocs(queryString);
-        const items = [];
-        querySnapshot.forEach((doc) => {
-            items.push(doc.data());
+export function useGetItemById(itemId) {
+    const [item, setItem] = useState({
+        itemId: '-1',
+        name: '',
+        categoryId: -1,
+        expireDate: '',
+        imageDownloadUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
+        storageLocation: '',
+        createdDate: '',
+        foodState: ""
+    });
+
+    useEffect(() => {
+        if (!itemId) {
+            setItem(null);
+            return;
+        }
+
+        const collectionRef = collection(db, "items");
+        const q = query(collectionRef, where("itemId", "==", itemId));
+
+        // Start listening in real time
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            if (!snapshot.empty) {
+                const doc = snapshot.docs[0]; // assume 1 item
+                setItem({ id: doc.id, ...doc.data() });
+            } else {
+                setItem(null);
+            }
+        }, (error) => {
+            console.error("Error getting item information:", error);
         });
-        console.log("All items:", items);
-        return items;
-    } catch (error) {
-        console.error("Error getting all items:", error);
-        return null;
+
+        // ✅ Cleanup the listener when itemId changes or component unmounts
+        return () => unsubscribe();
+
+    }, [itemId]);
+
+    return item;
+}
+
+export function useGetAllItems(userId) {
+    const [items, setItems] = useState([]);
+    const getAllItems = async () => {
+        const collectionRef = collection(db, "items");
+        const q = query(collectionRef, where("userId", "==",userId ), orderBy("expireDate", "desc"));
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const itemsData = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            setItems(itemsData);
+        });
+
+        // Cleanup when component unmounts
+        return () => unsubscribe();
     }
+
+    useEffect(() => {
+        getAllItems();
+    }, []);
+
+    return items;
 }
