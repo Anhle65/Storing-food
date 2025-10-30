@@ -1,8 +1,23 @@
-import {collection, addDoc, serverTimestamp, getDocs, query, where, orderBy} from "firebase/firestore";
-import { db } from "../config/firebase.js";
-export async function addItem(itemId, name, categoryId, createDate, expireDate, imageDownloadUrl, storageLocation, foodState) {
+import {collection, addDoc, getDocs, query, where, orderBy} from "firebase/firestore";
+import {db, storage} from "../config/firebase.js";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
+import {v4} from "uuid";
+export async function uploadImage (imageUrl) {
+    if (!imageUrl)
+        return "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"; // Ensure imageUrl is valid
+    try {
+        const imageRef = ref(storage, `images/${imageUrl.name + v4()}`); // Use image name
+        const snapshot = await uploadBytes(imageRef, imageUrl); // Upload the file
+        // Get the download URL
+        return getDownloadURL(snapshot.ref);
+    } catch (error) {
+        console.error("Error uploading image:", error);
+    }
+};
+export async function addItem(userId, itemId, name, categoryId, createDate, expireDate, imageDownloadUrl, storageLocation, foodState) {
     try {
         await addDoc(collection(db, "items"), {
+            userId,
             itemId,
             name,
             categoryId,
