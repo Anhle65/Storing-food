@@ -1,12 +1,15 @@
 import {AppBar, Avatar, Box, Container, IconButton, Menu, MenuItem, Tooltip, Typography} from "@mui/material";
 import React, {useState} from "react";
-import {useGetAuth} from "../hooks/useGetAuth";
 import {signOut} from "firebase/auth";
 import {auth} from "../config/firebase";
 import {useNavigate} from "react-router-dom";
-export const NavBar = () => {
+
+type IUserInfo = {
+    name: string;
+    photoURL: string;
+}
+export const NavBar = ({name, photoURL}: IUserInfo) => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const {name, photoURL} = useGetAuth();
     const navigate = useNavigate();
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
