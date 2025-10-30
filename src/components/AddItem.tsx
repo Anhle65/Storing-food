@@ -53,8 +53,8 @@ export default function AddItemForm() {
     return (
         <>{auth.isAuth ? (
             <><NavBar name={auth.name} photoURL={auth.photoURL}/>
-                <div rows-sm>
-                    <form rows-sm onSubmit={handleAddItem} className="p-4">
+                <div>
+                    <form onSubmit={handleAddItem} className="p-4">
                         Name:
                         <input
                             type="text"
