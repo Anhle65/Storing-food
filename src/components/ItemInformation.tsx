@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {deleteImage, removeItem, useGetItemById} from "../models/firebase-actions";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {getNumberDaysLeftBeforeExpiration} from "../models/dateConverter";
 import {Card, CardContent, CardMedia, Divider, Fab, Grid, Tooltip, Typography, Dialog,
     DialogActions,
@@ -39,7 +39,7 @@ export const ItemInformation = () => {
     const deleteItem = async () => {
         try {
             await removeItem(itemId, auth.userId);
-            await deleteImage(imageDownloadUrl);
+            await deleteImage(itemDetails.imageDownloadUrl);
             console.log("Deleted");
             navigate('/items');
         } catch (err) {
@@ -141,7 +141,7 @@ export const ItemInformation = () => {
                             </Button>
                         </DialogActions>
                     </Dialog>
-                    <CardMedia src={imageDownloadUrl} component="img" height="400"
+                    <CardMedia src={itemDetails.imageDownloadUrl ? itemDetails.imageDownloadUrl: imageDownloadUrl} component="img" height="400"
                                sx={{objectFit: 'contain', marginTop: 2}}/>
                 </Card></>
             }

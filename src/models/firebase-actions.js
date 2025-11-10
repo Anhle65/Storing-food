@@ -110,7 +110,6 @@ export function useGetItemById(itemId) {
             console.error("Error getting item information:", error);
         });
 
-        // ✅ Cleanup the listener when itemId changes or component unmounts
         return () => unsubscribe();
 
     }, [itemId]);
@@ -138,7 +137,7 @@ export function useGetAllItems(userId) {
 
     useEffect(() => {
         getAllItems();
-    }, []);
+    },[]);
 
     return items;
 }
